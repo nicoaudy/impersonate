@@ -2,7 +2,7 @@
 
 namespace NicoAudy\Impersonate;
 
-use NicoAudy\Middleware\Impersonate as ImpersonateMiddleware;
+use NicoAudy\Impersonate\Middleware\Impersonate as ImpersonateMiddleware;
 use Illuminate\Support\ServiceProvider;
 
 class ImpersonateServiceProvider extends ServiceProvider
