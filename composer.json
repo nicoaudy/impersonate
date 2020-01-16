@@ -1,16 +1,16 @@
 {
     "name": "nicoaudy/impersonate",
-    "description": ":package_description",
-    "license": "license",
+    "description": "Laravel impersonate middleware, simply traits for impersonating other user",
+    "license": "MIT",
     "authors": [
         {
-            "name": "author name",
-            "email": "author email",
-            "homepage": "author homepage"
+            "name": "NicoAudy",
+            "email": "nicoaudy1994@gmail.com",
+            "homepage": "https://nicoaudy.github.io"
         }
     ],
     "homepage": "https://github.com/nicoaudy/impersonate",
-    "keywords": ["Laravel", "Impersonate"],
+    "keywords": ["Laravel", "Impersonate", "Package"],
     "require": {
         "illuminate/support": "~5|~6"
     },
