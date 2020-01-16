@@ -2,6 +2,7 @@
 
 namespace NicoAudy\Impersonate;
 
+use NicoAudy\Middleware\Impersonate as ImpersonateMiddleware;
 use Illuminate\Support\ServiceProvider;
 
 class ImpersonateServiceProvider extends ServiceProvider
@@ -13,15 +14,7 @@ class ImpersonateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'nicoaudy');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'nicoaudy');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-
-        // Publishing is only necessary when using the CLI.
-        if ($this->app->runningInConsole()) {
-            $this->bootForConsole();
-        }
+        //
     }
 
     /**
@@ -31,12 +24,12 @@ class ImpersonateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/impersonate.php', 'impersonate');
-
         // Register the service the package provides.
         $this->app->singleton('impersonate', function ($app) {
             return new Impersonate;
         });
+
+        $this->registerMiddleware();
     }
 
     /**
@@ -48,35 +41,15 @@ class ImpersonateServiceProvider extends ServiceProvider
     {
         return ['impersonate'];
     }
-    
+
     /**
-     * Console-specific booting.
+     * Register plugin middleware.
      *
-     * @return void
+     * @param void
+     * @return  void
      */
-    protected function bootForConsole()
+    public function registerMiddleware()
     {
-        // Publishing the configuration file.
-        $this->publishes([
-            __DIR__.'/../config/impersonate.php' => config_path('impersonate.php'),
-        ], 'impersonate.config');
-
-        // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/nicoaudy'),
-        ], 'impersonate.views');*/
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/nicoaudy'),
-        ], 'impersonate.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/nicoaudy'),
-        ], 'impersonate.views');*/
-
-        // Registering package commands.
-        // $this->commands([]);
+        $this->app['router']->aliasMiddleware('impersonate', ImpersonateMiddleware::class);
     }
 }
